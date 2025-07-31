@@ -25,8 +25,10 @@ def get_gemini_embedding(texts):
 
 # ========== 載入 Chroma 資料庫 ==========
 client_chroma = chromadb.PersistentClient(path="./chroma_db")
-thread_id = "thread_1234"  # Collection 名稱（之前 upload.py 建立過）
-collection = client_chroma.get_collection(name=thread_id)
+collection = client_chroma.get_or_create_collection(name="multi_thread_chatroom")
+
+# ========== 指定聊天串 ID ==========
+thread_id = "thread_1001"
 
 # ========== 問答主迴圈 ==========
 while True:
@@ -37,9 +39,18 @@ while True:
     # 1. 將問題轉為向量
     q_emb = get_gemini_embedding(user_q)[0]
 
-    # 2. 語意查詢最近的 3 筆資料
-    results = collection.query(query_embeddings=[q_emb], n_results=3)
+    # 2. 語意查詢最近的資料
+    results = collection.query(
+        query_embeddings=[q_emb],
+        n_results=3,
+        where={"thread_id": thread_id}  # 👈 限制只查詢該聊天串的留言
+    )
+
     top_contexts = results['documents'][0]
+
+    if not top_contexts:
+        print("⚠️ 找不到相似留言。")
+        continue
 
     # 建立有標註來源的段落
     context_parts = []
