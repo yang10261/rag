@@ -1,0 +1,29 @@
+[
+  {
+    "id": "thread_1001_cmt1",
+    "text": "今天天氣真好！",
+    "metadata": {
+      "thread_id": "thread_1001",
+      "user": "Alice",
+      "time": "2025-07-31T16:01:10.501766"
+    }
+  },
+  {
+    "id": "thread_1001_cmt2",
+    "text": "我喜歡陽光的感覺。",
+    "metadata": {
+      "time": "2025-07-31T16:01:10.501771",
+      "thread_id": "thread_1001",
+      "user": "Bob"
+    }
+  },
+  {
+    "id": "thread_1001_cmt3",
+    "text": "下午想去公園走走。",
+    "metadata": {
+      "time": "2025-07-31T16:01:10.501772",
+      "user": "Cathy",
+      "thread_id": "thread_1001"
+    }
+  }
+]
